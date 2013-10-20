@@ -129,8 +129,8 @@ function linux {
   exit_check "Disabling root login"
 
   # Make sure user 'cloudsigma' can `sudo` (without password).
-  echo -e 'cloudsigma\tALL=(ALL)\tNOPASSWD: ALL' > /etc/sudoers.d/cloudsigma
   mkdir -p /etc/sudoers.d
+  echo -e 'cloudsigma\tALL=(ALL)\tNOPASSWD: ALL' > /etc/sudoers.d/cloudsigma
   chown root:root /etc/sudoers.d/cloudsigma
   chmod 0440 /etc/sudoers.d/cloudsigma
 
@@ -267,7 +267,7 @@ if [ $OS == 'Linux' ]; then
 
   linux # Call on `linux` function
 
-  if [ $DIST == 'Debian' ]; then
+  if [ $DIST == 'debian' ]; then
     debian # Call on `debian` function
   elif  [ $DIST = 'Ubuntu' ]; then
     ubuntu # Call on `ubuntu` function
