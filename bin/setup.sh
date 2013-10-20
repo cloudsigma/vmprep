@@ -112,16 +112,17 @@ function install_exec {
 ## Generic Linux
 function linux {
   # Install the first-launch script
-  #install_exec "$GITHUBFILEPATH/cs_first_boot.sh" '/usr/sbin/cs_first_boot.sh'
-  #install_exec "$GITHUBFILEPATH/cs_install_ssh_keys.sh" '/usr/sbin/cs_install_ssh_keys.sh'
+  install_exec "$GITHUBFILEPATH/cs_first_boot.sh" '/usr/sbin/cs_first_boot.sh'
+  install_exec "$GITHUBFILEPATH/cs_install_ssh_keys.sh" '/usr/sbin/cs_install_ssh_keys.sh'
 
   # Overwrite `/etc/issue` with some system information and a greeting (for tty/VNC)
-  #curl -sL $GITHUBFILEPATH/issue > /etc/issue
+  curl -sL $GITHUBFILEPATH/issue > /etc/issue
+  exit_check "Fetch 'issue'"
   echo -e "\n$SYSSTRING\n"  >> /etc/issue
 
   # Overwrite /etc/rc.local
-  #curl -sL "$GITHUBFILEPATH/rc_local" > /etc/rc.local
-  #exit_check "Fetch rc.local"
+  curl -sL "$GITHUBFILEPATH/rc_local" > /etc/rc.local
+  exit_check "Fetch rc.local"
 
   # Disable root-login (can be enabled by setting a password)
   # TODO: This might be improved by setting an invalid password instead of an empty one.
@@ -154,18 +155,18 @@ function linux_cleanup {
   history -c
 
   # Make sure we don't leave any SSH host keys behind to avoid MiTM-attacks.
-  #rm -f /etc/ssh/ssh_host_*
+  rm -f /etc/ssh/ssh_host_*
 }
 
 ## Debian
 function debian {
   # TODO: Install latest kernel
 
-  #apt-get --quiet update
-  #apt-get -y --quiet upgrade
+  apt-get --quiet update
+  apt-get -y --quiet upgrade
 
   # Make sure desired packages are installed
-  #apt-get install -y python-pip vim openssh-server openssh-client ufw fail2ban
+  apt-get install -y python-pip vim openssh-server openssh-client ufw fail2ban
   apt-get --quiet autoremove
   apt-get --quiet clean
 
@@ -174,7 +175,7 @@ function debian {
   usermod -a -G dialout cloudsigma
 
   # Add final line(s) to rc.local
-  #echo -e 'exit 0' >> /etc/rc.local
+  echo -e 'exit 0' >> /etc/rc.local
 
   # Install string to Motd (after login)
   echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd
@@ -198,7 +199,7 @@ function ubuntu {
 ## CentOS
 function centos {
   # Make sure we're up to date
-  #yum -y --quiet upgrade
+  yum -y --quiet upgrade
 
   # Add user 'cloudsigma' to dialout group so that
   # it can read /dev/ttyS0 (needed for server contextualization)
@@ -209,11 +210,11 @@ function centos {
   # TODO: fail2ban?
 
   # Make sure desired packages are installed
-  #yum install --quiet -y openssh-server openssh-client vim
+  yum install --quiet -y openssh-server openssh-client vim
   yum --quiet clean all
 
   # Add final line(s) to rc.local
-  #echo -e 'touch /var/lock/subsys/local\nexit 0' >> /etc/rc.local
+  echo -e 'touch /var/lock/subsys/local\nexit 0' >> /etc/rc.local
 
   # Install string to Motd (after login)
   echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd
@@ -233,7 +234,7 @@ function fedora {
   # TODO: fail2ban?
 
   # Make sure we're up to date
-  #yum -y --quiet upgrade
+  yum -y --quiet upgrade
 
   # Add user 'cloudsigma' to dialout group so that
   # it can read /dev/ttyS0 (needed for server contextualization)
