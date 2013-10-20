@@ -14,7 +14,7 @@ function generate_ssh_host_key_debian {
 }
 
 # Silly Debian/Ubuntu doesn't generate SSH host keys on boot if they are absent.
-if [ $DIST == 'Debian' ]; then
+if [ $DIST == 'debian' ]; then
   generate_ssh_host_key_debian
 elif [ $DIST == 'Ubuntu' ]; then
   generate_ssh_host_key_debian

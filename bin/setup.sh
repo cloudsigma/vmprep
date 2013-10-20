@@ -51,7 +51,7 @@ fi
 ## Returns 'Linux', 'Windows' etc.
 OS=$(python -c 'import platform; print platform.system()')
 
-## Returns 'Debian', 'Ubuntu', 'Fedora' etc.
+## Returns 'debian', 'Ubuntu', 'Fedora' etc.
 DIST=$(python -c 'import platform; print platform.linux_distribution()[0]')
 
 ## Returns the distribution version.
@@ -170,9 +170,6 @@ function debian {
   # Make sure desired packages are installed
   apt-get install -y --quiet sudo python-pip vim openssh-server openssh-client ufw fail2ban
 
-  # Install the latest kernel
-  apt-get install -y --quiet linux-image-virtual linux-virtual
-
   # Clean up
   apt-get --quiet autoremove
   apt-get --quiet clean
@@ -198,6 +195,9 @@ function debian {
 function ubuntu {
   # Use the same routine as Debian
   debian
+
+  # Install the latest kernel
+  apt-get install -y --quiet linux-image-virtual linux-virtual
 
   # Install string to Motd (after login)
   echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd.tail
