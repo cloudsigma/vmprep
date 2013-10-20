@@ -51,8 +51,8 @@ fi
 ## Returns 'Linux', 'Windows' etc.
 OS=$(python -c 'import platform; print platform.system()')
 
-## Returns 'debian', 'Ubuntu', 'Fedora' etc.
-DIST=$(python -c 'import platform; print platform.linux_distribution()[0]')
+## Returns 'Debian', 'Ubuntu', 'Fedora' etc.
+DIST=$(python -c 'import platform; print platform.linux_distribution()[0].title()')
 
 ## Returns the distribution version.
 DISTVER=$(python -c 'import platform; print platform.linux_distribution()[1]')
@@ -267,7 +267,7 @@ if [ $OS == 'Linux' ]; then
 
   linux # Call on `linux` function
 
-  if [ $DIST == 'debian' ]; then
+  if [ $DIST == 'Debian' ]; then
     debian # Call on `debian` function
   elif  [ $DIST = 'Ubuntu' ]; then
     ubuntu # Call on `ubuntu` function

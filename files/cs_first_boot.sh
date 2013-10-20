@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-DIST=$(python -c 'import platform; print platform.linux_distribution()[0]')
+DIST=$(python -c 'import platform; print platform.linux_distribution()[0].title()')
 
 function generate_ssh_host_key_debian {
   # Regenerate SSH keys.
@@ -14,7 +14,7 @@ function generate_ssh_host_key_debian {
 }
 
 # Silly Debian/Ubuntu doesn't generate SSH host keys on boot if they are absent.
-if [ $DIST == 'debian' ]; then
+if [ $DIST == 'Debian' ]; then
   generate_ssh_host_key_debian
 elif [ $DIST == 'Ubuntu' ]; then
   generate_ssh_host_key_debian
