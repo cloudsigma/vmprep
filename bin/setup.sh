@@ -137,7 +137,7 @@ function linux {
   sed -e 's/^.*PermitRootLogin.*$/PermitRootLogin no/g' -i /etc/ssh/sshd_config
 
   # Touch the trigger file
-  #touch /home/cloudsigma/.first_boot
+  touch /home/cloudsigma/.first_boot
 }
 
 ## Function for cleaning up Linux systems.
@@ -160,13 +160,17 @@ function linux_cleanup {
 
 ## Debian
 function debian {
-  # TODO: Install latest kernel
 
   apt-get --quiet update
   apt-get -y --quiet upgrade
 
   # Make sure desired packages are installed
   apt-get install -y python-pip vim openssh-server openssh-client ufw fail2ban
+
+  # Install the latest kernel
+  apt-get install -y linux-image-virtual linux-virtual
+
+  # Clean up
   apt-get --quiet autoremove
   apt-get --quiet clean
 
