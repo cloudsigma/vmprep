@@ -125,8 +125,8 @@ function linux {
   exit_check "Fetch rc.local"
 
   # Disable root-login (can be enabled by setting a password)
-  # TODO: This might be improved by setting an invalid password instead of an empty one.
-  passwd --delete root > /dev/null
+  passwd -l root > /dev/null
+  exit_check "Disabling root login"
 
   # Make sure user 'cloudsigma' can `sudo` (without password).
   echo -e 'cloudsigma\tALL=(ALL)\tNOPASSWD: ALL' > /etc/sudoers.d/cloudsigma
@@ -134,7 +134,8 @@ function linux {
   chmod 0440 /etc/sudoers.d/cloudsigma
 
   # Improve security by disabling root login via SSH
-  sed -e 's/^.*PermitRootLogin.*$/PermitRootLogin no/g' -i /etc/ssh/sshd_config
+  sed -e 's/^.*PermitRootLogin.*$/PermitRootLogin no/g' -i /etc/ssh/sshd_config > /dev/null
+  exit_check "Disable root login via ssh"
 
   # Touch the trigger file
   touch /home/cloudsigma/.first_boot
@@ -156,6 +157,7 @@ function linux_cleanup {
 
   # Make sure we don't leave any SSH host keys behind to avoid MiTM-attacks.
   rm -f /etc/ssh/ssh_host_*
+  exit_check "Removing ssh host keys"
 }
 
 ## Debian
@@ -165,10 +167,10 @@ function debian {
   apt-get -y --quiet upgrade
 
   # Make sure desired packages are installed
-  apt-get install -y python-pip vim openssh-server openssh-client ufw fail2ban
+  apt-get install -y --quiet python-pip vim openssh-server openssh-client ufw fail2ban
 
   # Install the latest kernel
-  apt-get install -y linux-image-virtual linux-virtual
+  apt-get install -y --quiet linux-image-virtual linux-virtual
 
   # Clean up
   apt-get --quiet autoremove
@@ -186,9 +188,9 @@ function debian {
 
   # Configure Uncomplicated Firewall (ufw) block all but SSH
   # (Disable IPv6 to avoid duplicate rules)
-  sed -i 's/^IPV6=yes/IPV6=no/g' /etc/default/ufw
-  ufw allow ssh
-  echo 'y' | ufw enable
+  sed -i 's/^IPV6=yes/IPV6=no/g' /etc/default/ufw > /dev/null
+  ufw allow ssh > /dev/null
+  echo 'y' | ufw enable > /dev/null
 }
 
 ## Ubuntu

@@ -28,11 +28,13 @@ In order to keep things consistent, we make a few things consistent across all L
  * Root login via SSH is disabled.
  * The timezone is set to CET
  * All disk images are created to run with VirtIO for both disks and network interface
+ * The keyboard layout is set to English (US)
 
 ## Installation notes for operating system.
 
 ### Ubuntu
-For Ubuntu, we will use the 'minimal virtual installation' (press F2 in the boot screen). We also configure these systems to automatically install security updates.
+
+For Ubuntu, we will use the 'Minimal virtual machine'-profile (press F2 in the boot screen). We also configure these systems to automatically install security updates.
 
 In order to increase the security, Uncomplicated Firewall (ufw) is installed, and configured to block all connections with the exception of SSH. To disable ufw, simply run `sudo ufw disable`. For more information about ufw, please visit (insert link).
 
