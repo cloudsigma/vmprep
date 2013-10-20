@@ -34,22 +34,33 @@ In order to keep things consistent, we make a few things consistent across all L
 
 ### Ubuntu
 
-For Ubuntu, we will use the 'Minimal virtual machine'-profile (press F2 in the boot screen). We also configure these systems to automatically install security updates.
+ * Use the 'Minimal virtual machine'-profile (press F2 in the boot screen).
+ * Set the keyboard to English (US).
+ * Configure the disk to use LVM.
+ * Configure the systems to automatically install security updates.
+ * In the package selection, only install 'OpenSSH Server'.
+ * Create the 'cloudsigma' user account
 
-In order to increase the security, Uncomplicated Firewall (ufw) is installed, and configured to block all connections with the exception of SSH. To disable ufw, simply run `sudo ufw disable`. For more information about ufw, please visit (insert link).
+In order to increase the security, the post-installation script installs Uncomplicated Firewall (ufw), and configured to block all connections with the exception of SSH. To disable ufw, simply run `sudo ufw disable`. For more information about ufw, please visit [this](https://help.ubuntu.com/community/UFW) page.
 
 ### Debian
+
+ * Use the regular installer (not the graphical one)
+ * Select American English as the keyboard layout
+ * Set a random root password (which will be deleted later)
+ * Create the 'cloudsigma' user account
+ * Select LVM for the disk management, and all in one partition
+ * In the 'Software selection,' deselect everything but 'SSH Server'
 
 ### CentOS
 The most notable change is that the root account is disabled by default. We've also disabled root-login via SSH.
 
 ## Usage
 
-First, make sure that `curl` is installed. Once that is done, simply run this command as root:
+First, make sure that `curl` and `python` are installed. Once that is done, simply run this command as root:
 
     curl -sL -o /tmp/setup.sh https://raw.github.com/cloudsigma/vmprep/master/bin/setup.sh
-    chmod +x /tmp/setup.sh
-    rm /tmp/setup.sh
+    chmod +x /tmp/setup.sh && sudo /tmp/setup.sh && rm /tmp/setup.sh
 
 ## FAQ
 

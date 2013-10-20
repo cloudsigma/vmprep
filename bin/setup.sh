@@ -109,16 +109,11 @@ function install_exec {
 # Functions for different systems
 ################################################################################
 
-## Generic Linux
-function linux {
+## Function for pre-distribution specific function.
+function linux_before {
   # Install the first-launch script
   install_exec "$GITHUBFILEPATH/cs_first_boot.sh" '/usr/sbin/cs_first_boot.sh'
   install_exec "$GITHUBFILEPATH/cs_install_ssh_keys.sh" '/usr/sbin/cs_install_ssh_keys.sh'
-
-  # Overwrite `/etc/issue` with some system information and a greeting (for tty/VNC)
-  curl -sL $GITHUBFILEPATH/issue > /etc/issue
-  exit_check "Fetch 'issue'"
-  echo -e "\n$SYSSTRING\n"  >> /etc/issue
 
   # Overwrite /etc/rc.local
   curl -sL "$GITHUBFILEPATH/rc_local" > /etc/rc.local
@@ -137,13 +132,18 @@ function linux {
   # Improve security by disabling root login via SSH
   sed -e 's/^.*PermitRootLogin.*$/PermitRootLogin no/g' -i /etc/ssh/sshd_config > /dev/null
   exit_check "Disable root login via ssh"
+}
+
+## Function for post-distribution specific function.
+function linux_after {
+
+  # Overwrite `/etc/issue` with some system information and a greeting (for tty/VNC)
+  curl -sL $GITHUBFILEPATH/issue > /etc/issue
+  exit_check "Fetch 'issue'"
+  echo -e "\n$SYSSTRING\n"  >> /etc/issue
 
   # Touch the trigger file
   touch /home/cloudsigma/.first_boot
-}
-
-## Function for cleaning up Linux systems.
-function linux_cleanup {
 
   # Remove all log-files
   find /var/log -type f -delete
@@ -265,7 +265,7 @@ check_cs_user
 
 if [ $OS == 'Linux' ]; then
 
-  linux # Call on `linux` function
+  linux_before # Call on `linux_before` function
 
   if [ $DIST == 'Debian' ]; then
     debian # Call on `debian` function
@@ -281,7 +281,7 @@ if [ $OS == 'Linux' ]; then
     echo "$DIST is an unsupported Linux distribution"
   fi
 
-  linux_cleanup # Call on `linux_cleanup` function
+  linux_after # Call on `linux_after` function
 
 else
   echo "$OS is an unsupported platform."
