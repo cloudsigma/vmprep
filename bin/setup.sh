@@ -130,6 +130,7 @@ function linux {
 
   # Make sure user 'cloudsigma' can `sudo` (without password).
   echo -e 'cloudsigma\tALL=(ALL)\tNOPASSWD: ALL' > /etc/sudoers.d/cloudsigma
+  mkdir -p /etc/sudoers.d
   chown root:root /etc/sudoers.d/cloudsigma
   chmod 0440 /etc/sudoers.d/cloudsigma
 
