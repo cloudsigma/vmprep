@@ -45,7 +45,9 @@ The most notable change is that the root account is disabled by default. We've a
 
 First, make sure that `curl` is installed. Once that is done, simply run this command as root:
 
-    curl -sL https://raw.github.com/cloudsigma/vmprep/master/bin/setup.sh | bash
+    curl -sL -o /tmp/setup.sh https://raw.github.com/cloudsigma/vmprep/master/bin/setup.sh
+    chmod +x /tmp/setup.sh
+    rm /tmp/setup.sh
 
 ## FAQ
 
