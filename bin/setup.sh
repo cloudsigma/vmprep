@@ -167,7 +167,7 @@ function debian {
   apt-get -y --quiet upgrade
 
   # Make sure desired packages are installed
-  apt-get install -y --quiet python-pip vim openssh-server openssh-client ufw fail2ban
+  apt-get install -y --quiet sudo python-pip vim openssh-server openssh-client ufw fail2ban
 
   # Install the latest kernel
   apt-get install -y --quiet linux-image-virtual linux-virtual
