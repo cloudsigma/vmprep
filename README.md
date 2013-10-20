@@ -53,6 +53,15 @@ In order to increase the security, the post-installation script installs Uncompl
  * In the 'Software selection,' deselect everything but 'SSH Server'
 
 ### CentOS
+
+ * Set the language to English (US)
+ * Select 'Use all Space' in the partition section
+ * Select 'Minimal' as the installation type
+
+Upon the first boot, we need to create the `cloudsigma` user account. Simply run this command:
+
+    adduser cloudsigma -m -s /bin/bash
+
 The most notable change is that the root account is disabled by default. We've also disabled root-login via SSH.
 
 ## Usage

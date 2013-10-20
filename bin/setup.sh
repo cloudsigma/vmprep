@@ -51,8 +51,8 @@ fi
 ## Returns 'Linux', 'Windows' etc.
 OS=$(python -c 'import platform; print platform.system()')
 
-## Returns 'Debian', 'Ubuntu', 'Fedora' etc.
-DIST=$(python -c 'import platform; print platform.linux_distribution()[0].title()')
+## Returns 'Debian', 'Ubuntu', 'Fedora', CentOS  etc.
+DIST=$(python -c 'import platform; dist = platform.linux_distribution()[0]; print dist[0].upper() + dist[1:]')
 
 ## Returns the distribution version.
 DISTVER=$(python -c 'import platform; print platform.linux_distribution()[1]')
@@ -168,7 +168,7 @@ function debian {
   apt-get -y --quiet upgrade
 
   # Make sure desired packages are installed
-  apt-get install -y --quiet sudo python-pip vim openssh-server openssh-client ufw fail2ban
+  apt-get install -y --quiet sudo python-pip vim ufw fail2ban
 
   # Clean up
   apt-get --quiet autoremove
@@ -217,7 +217,7 @@ function centos {
   # TODO: fail2ban?
 
   # Make sure desired packages are installed
-  yum install --quiet -y openssh-server openssh-client vim
+  yum install --quiet -y vim
   yum --quiet clean all
 
   # Add final line(s) to rc.local
@@ -248,7 +248,7 @@ function fedora {
   usermod -a -G dialout cloudsigma
 
   # Make sure desired packages are installed
-  #yum install --quiet -y openssh-server openssh-client vim python-pip
+  #yum install --quiet -y vim python-pip
   yum --quiet clean all
 
   # Install string to Motd (after login)
