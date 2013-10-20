@@ -1,0 +1,7 @@
+#!/bin/sh
+
+FIRSTBOOTTRIGGER=/home/cloudsigma/.first_boot
+if [ -f $FIRSTBOOTTRIGGER ]; then
+    /usr/sbin/cs_first_boot.sh
+    rm $FIRSTBOOTTRIGGER
+fi

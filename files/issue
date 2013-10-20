@@ -1,0 +1,13 @@
+################################################################################
+#                  Discover True IaaS with CloudSigma                          #
+################################################################################
+
+The default login is:
+* Username: cloudsigma
+* Password: <your VNC password from the WebApp>
+
+We *strongly* encourage you to update your password.
+
+Please note:
+If you have an SSH key added in the WebApp, it has automatically
+been installed to the cloudsigma user.
