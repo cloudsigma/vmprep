@@ -84,9 +84,11 @@ On Ubuntu, run the following command:
 ### How do I update the timezone?
 
 On CentOS, run the following command:
+
     sudo tzselect
 
 On Debian/Ubuntu, run the this command:
+
     sudo dpkg-reconfigure tzdata
 
 ### How do I install SSH keys added after the first boot?
