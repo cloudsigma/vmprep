@@ -206,6 +206,7 @@ function ubuntu {
 ## CentOS
 function centos {
   # Make sure we're up to date
+  echo "Running upgrade..."
   yum -y --quiet upgrade
 
   # Add user 'cloudsigma' to dialout group so that
@@ -222,6 +223,9 @@ function centos {
 
   # Add final line(s) to rc.local
   echo -e 'touch /var/lock/subsys/local\nexit 0' >> /etc/rc.local
+
+  # Configure networking
+  echo -e 'DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=yes' > /etc/sysconfig/network-scripts/ifcfg-eth0
 
   # Install string to Motd (after login)
   echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd
