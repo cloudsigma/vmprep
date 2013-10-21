@@ -10,6 +10,7 @@ This tool has been tested on:
 
  * Ubuntu 12.04
  * CentOS 6.4
+ * Debian 7
 
 ## Overview
 
@@ -21,12 +22,11 @@ In order to keep things consistent, we make a few things consistent across all L
  * The password set for the user is the VNC password from the web console (which is set on the first boot).
  * SSH is enabled (and port 22 is opened in the firewall).
  * If an SSH key is present, it will be installed for the user 'cloudsigma'.
- * To improve security further, `fail2ban` is installed, which provides additional security against brute-force attacks.
+ * To improve security further, `fail2ban` is installed, which provides additional protection against brute-force attacks.
  * All operating systems are using `eth0` as the network interface, and it is configured to use DHCP.
  * A system upgrade (via the native package manager) is executed to ensure that all the latest packages are installed.
- * All disk images are 10GB in size and are using LVM (such that you can easily add another disk)
+ * All disk images are 10GB in size and are using LVM (such that you can easily expand it with another disk)
  * Root login via SSH is disabled.
- * The timezone is set to CET
  * All disk images are created to run with VirtIO for both disks and network interface
  * The keyboard layout is set to English (US)
 
@@ -76,10 +76,18 @@ First, make sure that `curl` and `python` are installed. Once that is done, simp
 ## FAQ
 
 ### How do I install a graphical interface?
-TODO
+
+On Ubuntu, run the following command:
+
+    sudo apt-get install ubuntu-desktop
 
 ### How do I update the timezone?
-TODO
+
+On CentOS, run the following command:
+    sudo tzselect
+
+On Debian/Ubuntu, run the this command:
+    sudo dpkg-reconfigure tzdata
 
 ### How do I install SSH keys added after the first boot?
 
