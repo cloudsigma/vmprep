@@ -64,6 +64,8 @@ Upon the first boot, we need to create the `cloudsigma` user account. Simply run
 
 The most notable change is that the root account is disabled by default. We've also disabled root-login via SSH.
 
+By default, the firewall is configured to only accept SSH connections. To alter the firewall, we recommend that you use `system-config-securitylevel-tui` (or `iptables` directly).
+
 ## Usage
 
 First, make sure that `curl` and `python` are installed. Once that is done, simply run this command as root:
@@ -79,9 +81,10 @@ TODO
 ### How do I update the timezone?
 TODO
 
-### How do I install SSH keys added after the initial clone
+### How do I install SSH keys added after the first boot?
 
-Just run the command:
+You can simply run the command the initiator calls on:
 
     cs_install_ssh_keys.sh
 
+Please note that this script is hard-coded to only install the keys into the 'cloudsigma' user account.

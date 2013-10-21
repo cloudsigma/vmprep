@@ -205,6 +205,9 @@ function ubuntu {
 
 ## CentOS
 function centos {
+
+  # TODO: ssh key authentication doesn't work.
+
   # Make sure we're up to date
   echo "Running upgrade..."
   yum -y --quiet upgrade
@@ -213,12 +216,14 @@ function centos {
   # it can read /dev/ttyS0 (needed for server contextualization)
   usermod -a -G dialout cloudsigma
 
-  # TODO: install EPEL repository (required for python-pip)
-
-  # TODO: fail2ban?
+  # Install EPEL repository (required for fail2ban and python-pip)
+  rpm -Uvh https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
   # Make sure desired packages are installed
-  yum install --quiet -y vim
+  yum install --quiet -y vim fail2ban python-pip system-config-securitylevel-tui
+  chkconfig fail2ban on
+
+  # Clean up
   yum --quiet clean all
 
   # Add final line(s) to rc.local
