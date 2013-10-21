@@ -81,6 +81,11 @@ On Ubuntu, run the following command:
 
     sudo apt-get install ubuntu-desktop
 
+On CentOS, run the following command:
+
+    sudo yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"
+    sudo sed -e 's/id:3:initdefault:/id:5:initdefault:/g' -i /etc/inittab
+
 ### How do I update the timezone?
 
 On CentOS, run the following command:
