@@ -159,6 +159,9 @@ function linux_after {
   # Make sure we don't leave any SSH host keys behind to avoid MiTM-attacks.
   rm -f /etc/ssh/ssh_host_*
   exit_check "Removing ssh host keys"
+
+  # Prevent new network interface from showing up as eth1
+  rm -f /etc/udev/rules.d/70-persistent-net.rules
 }
 
 ## Debian
