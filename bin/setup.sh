@@ -223,7 +223,7 @@ function centos {
   rpm -Uvh https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
   # Make sure desired packages are installed
-  yum install --quiet -y vim fail2ban python-pip system-config-securitylevel-tui
+  yum install -y vim fail2ban python-pip system-config-securitylevel-tui
   chkconfig fail2ban on
 
   # Clean up

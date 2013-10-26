@@ -16,6 +16,7 @@ This tool has been tested on:
 
 In order to keep things consistent, we make a few things consistent across all Linux distributions:
 
+ * All images are 64bit.
  * The user standard user is 'cloudsigma'.
  * Root login is disabled via SSH.
  * The root password is sett to null, hence you need to use `sudo` to switch to root.
