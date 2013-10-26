@@ -35,12 +35,7 @@ In order to keep things consistent, we make a few things consistent across all L
 
 ### Ubuntu
 
- * Use the 'Minimal virtual machine'-profile (press F2 in the boot screen).
- * Set the keyboard to English (US).
- * Configure the disk to use LVM.
- * Configure the systems to automatically install security updates.
- * In the package selection, only install 'OpenSSH Server'.
- * Create the 'cloudsigma' user account
+Please see these [installation instructions](https://github.com/cloudsigma/vmprep/blob/master/docs/ubuntu.md).
 
 In order to increase the security, the post-installation script installs Uncomplicated Firewall (ufw), and configured to block all connections with the exception of SSH. To disable ufw, simply run `sudo ufw disable`. For more information about ufw, please visit [this](https://help.ubuntu.com/community/UFW) page.
 
