@@ -11,7 +11,7 @@ We've also designed these base images to be as convenient as possible for you as
 This tool has been tested on:
 
  * CentOS 6.4
- * Debian 7
+ * Debian 7.2
  * Ubuntu 12.04
 
 ## Overview
@@ -42,12 +42,7 @@ In order to increase the security, the post-installation script installs Uncompl
 
 ### Debian
 
- * Use the regular installer (not the graphical one)
- * Select American English as the keyboard layout
- * Set a random root password (which will be deleted later)
- * Create the 'cloudsigma' user account
- * Select LVM for the disk management, and all in one partition
- * In the 'Software selection,' deselect everything but 'SSH Server'
+Please see these [installation instructions](https://github.com/cloudsigma/vmprep/blob/master/docs/debian.md).
 
 ### CentOS
 
