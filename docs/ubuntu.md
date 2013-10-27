@@ -54,5 +54,5 @@ The screenshots were taken during an Ubuntu 12.04 installation.
 
 ## Final words
 
-Once you have setup the system, just go ahead and run the `vmprep` script.
+Once you have setup the system, log in to the system and run the `vmprep` script.
 
