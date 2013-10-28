@@ -46,15 +46,7 @@ Please see these [installation instructions](https://github.com/cloudsigma/vmpre
 
 ### CentOS
 
- * Set the language to English (US)
- * Select 'Use all Space' in the partition section
- * Select 'Minimal' as the installation type
-
-Upon the first boot, we need to create the `cloudsigma` user account. Simply run this command:
-
-    adduser cloudsigma -m -s /bin/bash
-
-The most notable change is that the root account is disabled by default. We've also disabled root-login via SSH.
+Please see these [installation instructions](https://github.com/cloudsigma/vmprep/blob/master/docs/centos.md).
 
 By default, the firewall is configured to only accept SSH connections. To alter the firewall, we recommend that you use `system-config-securitylevel-tui` (or `iptables` directly).
 
