@@ -119,7 +119,10 @@ function linux_before {
   curl -sL "$GITHUBFILEPATH/rc_local" > /etc/rc.local
   exit_check "Fetch rc.local"
 
-  # Disable root-login (can be enabled by setting a password)
+  # Set a random root password and disable login (can be enabled by setting a password)
+  ROOTPWD=$(openssl rand -base64 32)
+  PWDSTRING="root:$ROOTPWD"
+  echo $PWDSTRING | /usr/sbin/chpasswd
   passwd -l root > /dev/null
   exit_check "Disabling root login"
 
