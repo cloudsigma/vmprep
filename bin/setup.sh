@@ -113,7 +113,7 @@ function install_exec {
 function linux_before {
   # Install the first-launch script
   install_exec "$GITHUBFILEPATH/cs_first_boot.sh" '/usr/sbin/cs_first_boot.sh'
-  install_exec "$GITHUBFILEPATH/cs_install_ssh_keys.sh" '/usr/sbin/cs_install_ssh_keys.sh'
+  install_exec "$GITHUBFILEPATH/cs_util.sh" '/usr/sbin/cs_util.sh'
 
   # Overwrite /etc/rc.local
   curl -sL "$GITHUBFILEPATH/rc_local" > /etc/rc.local

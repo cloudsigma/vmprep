@@ -21,12 +21,7 @@ elif [ $DIST == 'Ubuntu' ]; then
 fi
 
 ## Set the VNC password as the password for the user 'cloudsigma'
-VNCPWD=$(read -t 13 READVALUE < /dev/ttyS1 && echo $READVALUE & sleep 1; echo -en "<\nvnc_password\n>" > /dev/ttyS1; wait %1)
-PWDSTRING="cloudsigma:$VNCPWD"
-echo $PWDSTRING | /usr/sbin/chpasswd
+/usr/sbin/cs_util.sh set-vnc-password
 
-## Makes sure `hostname` is present in /etc/hosts
-# TODO
-
-## Install SSH keys
-/usr/sbin/cs_install_ssh_keys.sh
+## Install SSH keys for CloudSigma
+/usr/sbin/cs_util.sh set-ssh-key cloudsigma
