@@ -23,7 +23,7 @@ function create_ssh_folder {
 
 # Install the SSH key if present.
 # $1 is is the user account.
-function set_ssh_key {
+function install_ssh_key {
   # Set the target to the variable passed, but fall back to the current user.
   if [ -z "$1" ]; then
     TARGET="$(whoami)"
@@ -46,7 +46,7 @@ function set_vnc_password {
   ## Set the VNC password as the password for the user 'cloudsigma'
   VNCPWD=$(read -t 13 READVALUE < /dev/ttyS1 && echo $READVALUE & sleep 1; echo -en "<\nvnc_password\n>" > /dev/ttyS1; wait %1)
   PWDSTRING="cloudsigma:$VNCPWD"
-  echo $PWDSTRING | /usr/sbin/chpasswd
+  echo $PWDSTRING | sudo /usr/sbin/chpasswd
 }
 
 function install_newrelic {
@@ -78,8 +78,8 @@ function install_desktop {
 
 #### Process user input
 case "$1" in
-  set-ssh-key)
-    set_ssh_key $2
+  install-ssh-key)
+    install_ssh_key $2
     ;;
   set-vnc-password)
     set_vnc_password
@@ -92,8 +92,9 @@ case "$1" in
     ;;
   *)
     echo -e 'Valid options are:'
-    echo -e '\t* set-ssh-key <username> (defaults to the runtime user)'
-    echo -e '\t* set-vnc-password'
-    echo -e '\t* install_newrelic'
+    echo -e '\t* set-ssh-key - Installs the SSH Key from the WebApp to the current user (override by passing a username as a variable).'
+    echo -e '\t* set-vnc-password - Sets the VNC password as the password for the user "cloudsigma"'
+    echo -e '\t* install_newrelic - Installs New Relic Server Monitoring agent.'
+    echo -e '\t* install_desktop - Installs a desktop environment.'
     ;;
 esac
