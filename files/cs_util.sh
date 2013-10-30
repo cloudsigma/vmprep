@@ -76,6 +76,29 @@ function install_desktop {
   fi
 }
 
+function set_timezone_centos {
+  sudo tzselect
+}
+
+function set_timezone_ubuntu {
+  sudo dpkg-reconfigure tzdata
+}
+
+function set_timezone {
+  if  [ $DIST = 'Ubuntu' ]; then
+    set_timezone_ubuntu
+  elif [ $DIST = 'Debian' ]; then
+    set_timezone_ubuntu
+  elif [ $DIST = 'CentOS' ]; then
+    set_timezone_centos
+  elif [ $DIST = 'RedHat' ]; then
+    set_timezpne_centos
+  else
+    echo "$DIST is an unsupported Linux distribution"
+  fi
+
+}
+
 #### Process user input
 case "$1" in
   install-ssh-key)
@@ -90,6 +113,8 @@ case "$1" in
   install-desktop)
     install_desktop
     ;;
+  set-timezone)
+    set_timezone
   *)
     echo -e 'Valid options are:'
 
@@ -104,5 +129,9 @@ case "$1" in
 
     echo -e '\t* install-desktop'
     echo -e '\t\tInstalls a desktop environment.'
+
+    echo -e '\t* set-timezone'
+    echo -e '\t\tReconfigure the timezone'
+
     ;;
 esac
