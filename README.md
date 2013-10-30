@@ -61,29 +61,22 @@ First, make sure that `curl` and `python` are installed. Once that is done, simp
 
 ### How do I install a graphical interface?
 
-On Ubuntu, run the following command:
+Simply run the following command:
 
-    sudo apt-get install ubuntu-desktop
-
-On CentOS, run the following command:
-
-    sudo yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"
-    sudo sed -e 's/id:3:initdefault:/id:5:initdefault:/g' -i /etc/inittab
+    cs_util.sh install-desktop
 
 ### How do I update the timezone?
 
-On CentOS, run the following command:
+Just run the following command:
 
-    sudo tzselect
-
-On Debian/Ubuntu, run the this command:
-
-    sudo dpkg-reconfigure tzdata
+    cs_util.sh set-timezone
 
 ### How do I install SSH keys added after the first boot?
 
-You can simply run the command the initiator calls on:
+By default, the SSH key(s) stored in the WebApp for the server (or drive) will be installed to the account 'cloudsigma'. If you wish to do this later on, you can use the same tool again.
 
-    cs_install_ssh_keys.sh
+    cs_util.sh install-ssh-key
 
-Please note that this script is hard-coded to only install the keys into the 'cloudsigma' user account.
+This will install your SSH key(s) to your account. If you wish to install the same SSH key to a different account, you can do that too by runnning:
+
+    cs_util.sh install-ssh-key otheruser
