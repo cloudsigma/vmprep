@@ -123,7 +123,7 @@ case "$1" in
     echo -e '\t\tInstalls the SSH Key from the WebApp to the current user\n\t\t(override by passing a username as a variable).'
 
     echo -e '\t* set-vnc-password'
-    echo -e '\t\tSets the VNC password as the password for the user "cloudsigma"'
+    echo -e '\t\tSets the VNC password as the password for the user "cloudsigma".'
 
     echo -e '\t* install-newrelic'
     echo -e '\t\tInstalls New Relic Server Monitoring agent.'
@@ -132,7 +132,7 @@ case "$1" in
     echo -e '\t\tInstalls a desktop environment.'
 
     echo -e '\t* set-timezone'
-    echo -e '\t\tReconfigure the timezone'
+    echo -e '\t\tReconfigure the timezone.'
 
     ;;
 esac
