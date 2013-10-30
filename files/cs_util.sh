@@ -129,7 +129,7 @@ case "$1" in
     echo -e '\t\tInstalls New Relic Server Monitoring agent.'
 
     echo -e '\t* install-desktop'
-    echo -e '\t\tInstalls a desktop environment.'
+    echo -e '\t\tInstalls a desktop environment. This will take while...'
 
     echo -e '\t* set-timezone'
     echo -e '\t\tReconfigure the timezone.'
