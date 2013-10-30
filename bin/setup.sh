@@ -174,7 +174,7 @@ function debian {
   apt-get -y --quiet upgrade
 
   # Make sure desired packages are installed
-  apt-get install -y --quiet sudo python-pip vim ufw fail2ban
+  apt-get install -y --quiet sudo python-pip vim ufw fail2ban bash-completion
 
   # Clean up
   apt-get --quiet autoremove
