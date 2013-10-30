@@ -115,6 +115,7 @@ case "$1" in
     ;;
   set-timezone)
     set_timezone
+    ;;
   *)
     echo -e 'Valid options are:'
 
