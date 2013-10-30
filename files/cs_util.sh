@@ -56,7 +56,7 @@ function install_newrelic {
 
 
 function install_desktop_ubuntu {
-  sudo apt-get install ubuntu-desktop
+  sudo apt-get -y install ubuntu-desktop
 }
 
 function install_desktop_centos {
@@ -92,9 +92,17 @@ case "$1" in
     ;;
   *)
     echo -e 'Valid options are:'
-    echo -e '\t* set-ssh-key - Installs the SSH Key from the WebApp to the current user (override by passing a username as a variable).'
-    echo -e '\t* set-vnc-password - Sets the VNC password as the password for the user "cloudsigma"'
-    echo -e '\t* install_newrelic - Installs New Relic Server Monitoring agent.'
-    echo -e '\t* install_desktop - Installs a desktop environment.'
+
+    echo -e '\t* set-ssh-key'
+    echo -e '\t\tInstalls the SSH Key from the WebApp to the current user\n\t\t(override by passing a username as a variable).'
+
+    echo -e '\t* set-vnc-password'
+    echo -e '\t\tSets the VNC password as the password for the user "cloudsigma"'
+
+    echo -e '\t* install-newrelic'
+    echo -e '\t\tInstalls New Relic Server Monitoring agent.'
+
+    echo -e '\t* install-desktop'
+    echo -e '\t\tInstalls a desktop environment.'
     ;;
 esac
