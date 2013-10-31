@@ -24,4 +24,4 @@ fi
 /usr/sbin/cs_util.sh set-vnc-password
 
 ## Install SSH keys for CloudSigma
-/usr/sbin/cs_util.sh set-ssh-key cloudsigma
+/usr/sbin/cs_util.sh install-ssh-key cloudsigma
