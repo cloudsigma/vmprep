@@ -36,6 +36,7 @@ function install_ssh_key {
       create_ssh_folder $TARGET
       USERHOME=$(get_home $TARGET)
       echo -e "$SSHKEY" >> $USERHOME/.ssh/authorized_keys
+      echo "Found and installed SSH key for $TARGET."
   else
       echo "No SSH key found."
       exit 1
