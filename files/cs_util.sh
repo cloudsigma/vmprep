@@ -119,7 +119,7 @@ case "$1" in
   *)
     echo -e 'Valid options are:'
 
-    echo -e '\t* set-ssh-key'
+    echo -e '\t* install-ssh-key'
     echo -e '\t\tInstalls the SSH Key from the WebApp to the current user\n\t\t(override by passing a username as a variable).'
 
     echo -e '\t* set-vnc-password'
