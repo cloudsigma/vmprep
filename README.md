@@ -44,6 +44,8 @@ In order to increase the security, the post-installation script installs Uncompl
 
 Please see these [installation instructions](https://github.com/cloudsigma/vmprep/blob/master/docs/debian.md).
 
+Similarly to Ubuntu, 'ufw' is installed.
+
 ### CentOS
 
 Please see these [installation instructions](https://github.com/cloudsigma/vmprep/blob/master/docs/centos.md).
@@ -54,7 +56,7 @@ By default, the firewall is configured to only accept SSH connections. To alter 
 
 First, make sure that `curl` and `python` are installed. Once that is done, simply run this command as root:
 
-    curl -sL -o /tmp/setup.sh https://raw.github.com/cloudsigma/vmprep/master/bin/setup.sh
+    curl -sL -o /tmp/setup.sh https://www.cloudsigma.com/vmprep.sh
     chmod +x /tmp/setup.sh && sudo /tmp/setup.sh && rm /tmp/setup.sh
 
 ## FAQ
