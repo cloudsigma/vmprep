@@ -109,7 +109,7 @@ function install_exec {
 # Functions for different systems
 ################################################################################
 
-## Function for pre-distribution specific function.
+## Function for pre-distribution-specific function.
 function linux_before {
   # Install the first-launch script
   install_exec "$GITHUBFILEPATH/cs_first_boot.sh" '/usr/sbin/cs_first_boot.sh'
@@ -121,10 +121,15 @@ function linux_before {
 
   # Set a random root password and disable login (can be enabled by setting a password)
   ROOTPWD=$(openssl rand -base64 32)
-  PWDSTRING="root:$ROOTPWD"
-  echo $PWDSTRING | /usr/sbin/chpasswd
+  ROOTPWDSTRING="root:$ROOTPWD"
+  echo $ROOTPWDSTRING | /usr/sbin/chpasswd
   passwd -l root > /dev/null
   exit_check "Disabling root login"
+
+  # Set a random password for cloudsigma (to harden the system prior to the VNC pwd is set on boot)
+  CSPWD=$(openssl rand -base64 32)
+  CSPWDSTRING="cloudsigma:$CSPWD"
+  echo $CSPWDSTRING | /usr/sbin/chpasswd
 
   # Make sure user 'cloudsigma' can `sudo` (without password).
   mkdir -p /etc/sudoers.d
