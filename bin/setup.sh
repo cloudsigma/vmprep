@@ -115,6 +115,9 @@ function linux_before {
   install_exec "$GITHUBFILEPATH/cs_first_boot.sh" '/usr/sbin/cs_first_boot.sh'
   install_exec "$GITHUBFILEPATH/cs_util.sh" '/usr/sbin/cs_util.sh'
 
+  # Get banner
+  BANNER=$(curl -sL https://raw.github.com/cloudsigma/vmprep/master/files/banner)
+
   # Overwrite /etc/rc.local
   curl -sL "$GITHUBFILEPATH/rc_local" > /etc/rc.local
   exit_check "Fetch rc.local"
@@ -193,7 +196,7 @@ function debian {
   echo -e 'exit 0' >> /etc/rc.local
 
   # Install string to Motd (after login)
-  echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd
+  echo -e "\n$BANNER\n$SYSSTRING\n" > /etc/motd
 
   # Configure Uncomplicated Firewall (ufw) block all but SSH
   # (Disable IPv6 to avoid duplicate rules)
@@ -211,7 +214,7 @@ function ubuntu {
   apt-get install -y --quiet linux-image-virtual linux-virtual
 
   # Install string to Motd (after login)
-  echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd.tail
+  echo -e "\n$BANNER\n$SYSSTRING\n" > /etc/motd.tail
 }
 
 ## CentOS
@@ -244,7 +247,7 @@ function centos {
   echo -e 'DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=yes' > /etc/sysconfig/network-scripts/ifcfg-eth0
 
   # Install string to Motd (after login)
-  echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd
+  echo -e "\n$BANNER\n$SYSSTRING\n" > /etc/motd
 }
 
 ## RedHat Enterprise Linux
