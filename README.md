@@ -57,7 +57,7 @@ By default, the firewall is configured to only accept SSH connections. To alter 
 First, make sure that `curl` and `python` are installed. Once that is done, simply run this command as root:
 
     curl -sL -o /tmp/setup.sh https://www.cloudsigma.com/vmprep.sh
-    chmod +x /tmp/setup.sh && sudo /tmp/setup.sh && rm /tmp/setup.sh
+    chmod +x /tmp/setup.sh && /tmp/setup.sh && rm /tmp/setup.sh
 
 ## FAQ
 
