@@ -164,6 +164,10 @@ function linux_after {
     truncate -s 0 $file
   done
 
+  # Make sure no SSH keys were installed
+  rm -rf /home/cloudsigma/.ssh
+  rm -rf /root/.ssh
+
   # Clear the history list
   history -c
 
