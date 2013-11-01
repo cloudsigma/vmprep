@@ -148,7 +148,7 @@ function disable_firewall {
   elif [ $DIST = 'Debian' ]; then
     disable_firewall_ubuntu
   elif [ $DIST = 'CentOS' ]; then
-    disaable_firewall_centos
+    disable_firewall_centos
   elif [ $DIST = 'RedHat' ]; then
     disable_firewall_centos
   else
