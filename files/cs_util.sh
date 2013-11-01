@@ -121,6 +121,7 @@ function set_timezone {
 }
 
 function self_update {
+  running_as_root
   CSUTIL=/usr/sbin/cs_util.sh
   curl -sL -o $CSUTIL https://raw.github.com/cloudsigma/vmprep/master/files/cs_util.sh
   chmod +x $CSUTIL
@@ -197,7 +198,7 @@ case "$1" in
     echo -e '\t\tReconfigure the timezone.'
 
     echo -e '\t* disable-firewall'
-    echo -e '\t\tDisable the firewall'
+    echo -e '\t\tDisable the firewall.'
 
     echo -e '\t* update'
     echo -e '\t\tDownload and install the latest version of cs_util.sh.'
