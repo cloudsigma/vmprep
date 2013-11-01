@@ -199,8 +199,12 @@ function debian {
   # Add final line(s) to rc.local
   echo -e 'exit 0' >> /etc/rc.local
 
-  # Install string to Motd (after login)
-  echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
+  # Make sure to only run this on Debian. Ubuntu uses `motd.tail`,
+  # so this is to avoid the message being displayed twice.
+  if [ $DIST == 'Debian' ]; then
+    # Install string to Motd (after login)
+    echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
+  fi
 
   # Configure Uncomplicated Firewall (ufw) block all but SSH
   # (Disable IPv6 to avoid duplicate rules)
