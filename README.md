@@ -74,6 +74,12 @@ Just run the following command:
 
     sudo cs_util.sh set-timezone
 
+## How do I disable the firewall?
+
+We've built in a tool for disabling the firewall. Simply run:
+
+    sudo cs_util.sh disable-firewall
+
 ### How do I install SSH keys added after the first boot?
 
 By default, the SSH key(s) stored in the WebApp for the server (or drive) will be installed to the account 'cloudsigma'. If you wish to do this later on, you can use the same tool again.
