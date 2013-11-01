@@ -176,7 +176,7 @@ function linux_after {
   exit_check "Removing ssh host keys"
 
   # Prevent new network interface from showing up as eth1
-  rm -f /etc/udev/rules.d/70-persistent-net.rules
+  truncate -s 0 /etc/udev/rules.d/70-persistent-net.rules
 }
 
 ## Debian
@@ -200,7 +200,7 @@ function debian {
   echo -e 'exit 0' >> /etc/rc.local
 
   # Install string to Motd (after login)
-  echo -e "\n$BANNER\n$SYSSTRING\n" > /etc/motd
+  echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
 
   # Configure Uncomplicated Firewall (ufw) block all but SSH
   # (Disable IPv6 to avoid duplicate rules)
@@ -218,7 +218,7 @@ function ubuntu {
   apt-get install -y --quiet linux-image-virtual linux-virtual
 
   # Install string to Motd (after login)
-  echo -e "\n$BANNER\n$SYSSTRING\n" > /etc/motd.tail
+  echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd.tail
 }
 
 ## CentOS
@@ -251,7 +251,7 @@ function centos {
   echo -e 'DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=yes' > /etc/sysconfig/network-scripts/ifcfg-eth0
 
   # Install string to Motd (after login)
-  echo -e "\n$BANNER\n$SYSSTRING\n" > /etc/motd
+  echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
 }
 
 ## RedHat Enterprise Linux
