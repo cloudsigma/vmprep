@@ -65,13 +65,13 @@ First, make sure that `curl` and `python` are installed. Once that is done, simp
 
 Simply run the following command:
 
-    cs_util.sh install-desktop
+    sudo cs_util.sh install-desktop
 
 ### How do I update the timezone?
 
 Just run the following command:
 
-    cs_util.sh set-timezone
+    sudo cs_util.sh set-timezone
 
 ### How do I install SSH keys added after the first boot?
 
