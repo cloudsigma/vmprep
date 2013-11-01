@@ -105,6 +105,13 @@ function set_timezone_ubuntu {
   dpkg-reconfigure tzdata
 }
 
+function self_update {
+  CSUTIL=/usr/sbin/cs_util.sh
+  curl -sL -o $CSUTIL https://raw.github.com/cloudsigma/vmprep/master/files/cs_util.sh
+  chmod +x $CSUTIL
+  chown root:root $CSUTIL
+}
+
 function set_timezone {
   if  [ $DIST = 'Ubuntu' ]; then
     set_timezone_ubuntu
@@ -113,7 +120,7 @@ function set_timezone {
   elif [ $DIST = 'CentOS' ]; then
     set_timezone_centos
   elif [ $DIST = 'RedHat' ]; then
-    set_timezpne_centos
+    set_timezone_centos
   else
     echo "$DIST is an unsupported Linux distribution"
   fi
@@ -137,6 +144,9 @@ case "$1" in
   set-timezone)
     set_timezone
     ;;
+  update)
+    self_update
+    ;;
   *)
     echo -e 'Valid options are:'
 
@@ -155,5 +165,7 @@ case "$1" in
     echo -e '\t* set-timezone'
     echo -e '\t\tReconfigure the timezone.'
 
+    echo -e '\t* update'
+    echo -e '\t\tDownload and install the latest version of cs_util.sh.'
     ;;
 esac
