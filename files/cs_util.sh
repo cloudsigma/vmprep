@@ -12,6 +12,14 @@ function get_home {
     echo $(awk -F: -v v=$1 '{if ($1==v) print $6}' /etc/passwd)
 }
 
+# Make sure we're running as root
+function running_as_root {
+  if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root."
+    exit 1
+  fi
+}
+
 function create_ssh_folder {
     BASE=$(get_home $1)
     mkdir -p $BASE/.ssh
@@ -44,10 +52,18 @@ function install_ssh_key {
 }
 
 function set_vnc_password {
+  running_as_root
+
   ## Set the VNC password as the password for the user 'cloudsigma'
   VNCPWD=$(read -t 13 READVALUE < /dev/ttyS1 && echo $READVALUE & sleep 1; echo -en "<\nvnc_password\n>" > /dev/ttyS1; wait %1)
-  PWDSTRING="cloudsigma:$VNCPWD"
-  echo $PWDSTRING | sudo /usr/sbin/chpasswd
+  if [[ "$VNCPWD" ]]; then
+    PWDSTRING="cloudsigma:$VNCPWD"
+    echo $PWDSTRING | /usr/sbin/chpasswd
+    echo "VNC Password set for user cloudsigma"
+  else
+    echo "Unable to retrieve VNC password"
+    exit 1
+  fi
 }
 
 function install_newrelic {
@@ -57,12 +73,14 @@ function install_newrelic {
 
 
 function install_desktop_ubuntu {
-  sudo apt-get -y install ubuntu-desktop
+  running_as_root
+  apt-get -y install ubuntu-desktop
 }
 
 function install_desktop_centos {
-  sudo yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"
-  sudo sed -e 's/id:3:initdefault:/id:5:initdefault:/g' -i /etc/inittab
+  running_as_root
+  yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"
+  sed -e 's/id:3:initdefault:/id:5:initdefault:/g' -i /etc/inittab
 }
 
 function install_desktop {
@@ -78,11 +96,13 @@ function install_desktop {
 }
 
 function set_timezone_centos {
-  sudo tzselect
+  running_as_root
+  tzselect
 }
 
 function set_timezone_ubuntu {
-  sudo dpkg-reconfigure tzdata
+  running_as_root
+  dpkg-reconfigure tzdata
 }
 
 function set_timezone {
