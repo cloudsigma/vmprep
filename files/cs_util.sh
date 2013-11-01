@@ -105,13 +105,6 @@ function set_timezone_ubuntu {
   dpkg-reconfigure tzdata
 }
 
-function self_update {
-  CSUTIL=/usr/sbin/cs_util.sh
-  curl -sL -o $CSUTIL https://raw.github.com/cloudsigma/vmprep/master/files/cs_util.sh
-  chmod +x $CSUTIL
-  chown root:root $CSUTIL
-}
-
 function set_timezone {
   if  [ $DIST = 'Ubuntu' ]; then
     set_timezone_ubuntu
@@ -125,6 +118,41 @@ function set_timezone {
     echo "$DIST is an unsupported Linux distribution"
   fi
 
+}
+
+function self_update {
+  CSUTIL=/usr/sbin/cs_util.sh
+  curl -sL -o $CSUTIL https://raw.github.com/cloudsigma/vmprep/master/files/cs_util.sh
+  chmod +x $CSUTIL
+  chown root:root $CSUTIL
+}
+
+function disable_firewall_ubuntu {
+  running_as_root
+  ufw disable
+  echo 'Firewall disabled.'
+}
+
+function disable_firewall_centos {
+  running_as_root
+  service iptables save
+  service iptables stop
+  chkconfig iptables off
+  echo 'Firewall disabled.'
+}
+
+function disable_firewall {
+  if  [ $DIST = 'Ubuntu' ]; then
+    disable_firewall_ubuntu
+  elif [ $DIST = 'Debian' ]; then
+    disable_firewall_ubuntu
+  elif [ $DIST = 'CentOS' ]; then
+    diasable_firewall_centos
+  elif [ $DIST = 'RedHat' ]; then
+    disable_firewall_centos
+  else
+    echo "$DIST is an unsupported Linux distribution"
+  fi
 }
 
 #### Process user input
@@ -143,6 +171,9 @@ case "$1" in
     ;;
   set-timezone)
     set_timezone
+    ;;
+  disable-firewall)
+    disable_firewall
     ;;
   update)
     self_update
@@ -164,6 +195,9 @@ case "$1" in
 
     echo -e '\t* set-timezone'
     echo -e '\t\tReconfigure the timezone.'
+
+    echo -e '\t* disable-firewall'
+    echo -e '\t\tDisable the firewall'
 
     echo -e '\t* update'
     echo -e '\t\tDownload and install the latest version of cs_util.sh.'
