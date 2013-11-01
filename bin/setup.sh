@@ -229,6 +229,7 @@ function ubuntu {
 function centos {
 
   # TODO: ssh key authentication doesn't work.
+  # https://github.com/cloudsigma/vmprep/issues/1
 
   # Make sure we're up to date
   echo "Running upgrade..."
