@@ -147,7 +147,7 @@ case "$1" in
     echo -e '\t\tSets the VNC password as the password for the user "cloudsigma".'
 
     echo -e '\t* install-newrelic'
-    echo -e '\t\tInstalls New Relic Server Monitoring agent.'
+    echo -e '\t\tInstalls New Relic Server Monitoring agent using:\n\t\thttps://github.com/cloudsigma/newrelic_server_monitor_installer'
 
     echo -e '\t* install-desktop'
     echo -e '\t\tInstalls a desktop environment. This will take while...'
