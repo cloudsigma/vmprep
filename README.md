@@ -20,7 +20,7 @@ This tool has been tested on:
 In order to keep things consistent, we make a few things consistent across all Linux distributions:
 
  * All images are 64bit.
- * The user standard user is 'cloudsigma'.
+ * The standard user is 'cloudsigma'.
  * Root login is disabled via SSH.
  * The root account is disabled by default, but you can still `sudo` to switch to root.
  * The password set for the user is the VNC password from the web console (which is set on the first boot).
