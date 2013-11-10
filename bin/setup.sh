@@ -297,6 +297,7 @@ function fedora {
 
   # Add final line(s) to rc.local
   echo -e 'exit 0' >> /etc/rc.local
+  chmod +x /etc/rc.local
 
   # Install string to Motd (after login)
   echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
