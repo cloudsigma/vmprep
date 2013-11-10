@@ -182,6 +182,8 @@ function linux_after {
 
   # Set a hostname
   echo $HOSTNAME > /etc/hostname
+
+  # TODO: Make sure hostname is in hosts-file
 }
 
 ## Debian
