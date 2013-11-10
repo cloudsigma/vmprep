@@ -60,6 +60,9 @@ DISTVER=$(python -c 'import platform; print platform.linux_distribution()[1]')
 ## Returns '32bit' or '64bit'
 ARCH=$(python -c 'import platform; print platform.architecture()[0]')
 
+## Generate a hostname based on distribution and version (eg. ubuntu1204.local)
+HOSTNAME=$(python -c "print '%s%s.local' % ('$DIST'.lower(), '$DISTVER'.replace('.', ''))")
+
 SYSSTRING="$OS - $DIST $DISTVER ($ARCH)\nBuild date: $(date +"%Y-%m-%d") ($SIGN)"
 
 ################################################################################
@@ -176,6 +179,9 @@ function linux_after {
 
   # Prevent new network interface from showing up as eth1
   truncate -s 0 /etc/udev/rules.d/70-persistent-net.rules
+
+  # Set a hostname
+  echo $HOSTNAME > /etc/hostname
 }
 
 ## Debian
@@ -210,6 +216,8 @@ function debian {
   sed -i 's/^IPV6=yes/IPV6=no/g' /etc/default/ufw > /dev/null
   ufw allow ssh > /dev/null
   echo 'y' | ufw enable > /dev/null
+
+  # TODO: Make sure to remove cd from apt-list
 }
 
 ## Ubuntu
@@ -232,7 +240,7 @@ function centos {
 
   # Make sure we're up to date
   echo "Running upgrade..."
-  yum -y --quiet upgrade
+  yum -y upgrade
 
   # Add user 'cloudsigma' to dialout group so that
   # it can read /dev/ttyS0 (needed for server contextualization)
@@ -267,23 +275,32 @@ function redhat {
 ## Fedora
 function fedora {
 
-  # TODO: add rc.local equivalent feature for first-boot script
-
-  # TODO: fail2ban?
-
   # Make sure we're up to date
-  yum -y --quiet upgrade
+  echo "Running upgrade..."
+  yum -y upgrade
+
+  # Make sure desired packages are installed
+  yum install -y vim fail2ban python-pip system-config-securitylevel-tui
+  chkconfig fail2ban on
 
   # Add user 'cloudsigma' to dialout group so that
   # it can read /dev/ttyS0 (needed for server contextualization)
   usermod -a -G dialout cloudsigma
 
-  # Make sure desired packages are installed
-  #yum install --quiet -y vim python-pip
-  yum --quiet clean all
+  # Clean up
+  yum clean all
 
   # Install string to Motd (after login)
   echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd
+
+  # Add final line(s) to rc.local
+  echo -e 'exit 0' >> /etc/rc.local
+
+  # Install string to Motd (after login)
+  echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
+
+  # Set the hostname
+
 }
 
 ################################################################################

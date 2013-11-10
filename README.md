@@ -12,6 +12,7 @@ This tool has been tested on:
 
  * CentOS 6.4
  * Debian 7.2
+ * Fedora 19
  * Ubuntu 12.04
  * Ubuntu 13.10
 
