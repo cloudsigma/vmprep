@@ -78,8 +78,7 @@ function running_as_root {
 function check_cs_user {
   CSUSR=$(python -c "import pwd; print 'cloudsigma' in [entry.pw_name for entry in pwd.getpwall()]")
   if [ $CSUSR == 'False' ]; then
-    echo "The user 'cloudsigma' doesn't exist. Exiting."
-    exit 1
+    adduser cloudsigma --create-home --shell /bin/bash
   fi
 }
 
