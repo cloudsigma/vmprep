@@ -178,7 +178,13 @@ function linux_after {
   exit_check "Removing ssh host keys"
 
   # Prevent new network interface from showing up as eth1
-  truncate -s 0 /etc/udev/rules.d/70-persistent-net.rules
+  if [ -f /etc/udev/rules.d/70-persistent-net.rules ]; then
+    truncate -s 0 /etc/udev/rules.d/70-persistent-net.rules
+  fi
+
+  if [ -f /lib/udev/write_net_rules ]; then
+    truncate -s 0 /lib/udev/write_net_rules
+  fi
 
   # Set a hostname
   echo $HOSTNAME > /etc/hostname
@@ -218,6 +224,12 @@ function debian {
   sed -i 's/^IPV6=yes/IPV6=no/g' /etc/default/ufw > /dev/null
   ufw allow ssh > /dev/null
   echo 'y' | ufw enable > /dev/null
+
+  # Fix bug with non-persistent DHCP
+  # (http://www.metacloud.com/wp-content/uploads/2013/10/OS_Summit_Portland_Images.pdf)
+  if [ -h /sbin/dhclient3 ]; then
+    rm -f /sbin/dhclient3
+  fi
 
   # TODO: Make sure to remove cd from apt-list
 }
@@ -266,6 +278,13 @@ function centos {
 
   # Install string to Motd (after login)
   echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
+
+  # Fix bug with non-persistent DHCP
+  # (http://www.metacloud.com/wp-content/uploads/2013/10/OS_Summit_Portland_Images.pdf)
+  echo "PERSISTENT_DHCLIENT=yes" >> /etc/sysconfig/network-scripts/ifcfg-eth0
+
+  # Make sure the MAC address isn't stored
+  sed -i 's/^HWADDR.*$//g' /etc/sysconfig/network-scripts/ifcfg-eth0 > /dev/null
 }
 
 ## RedHat Enterprise Linux
