@@ -231,7 +231,8 @@ function debian {
     rm -f /sbin/dhclient3
   fi
 
-  # TODO: Make sure to remove cd from apt-list
+  # Make sure no CD-ROM references are present in source.list.
+  sed -i 's/^deb cdrom/# deb cdrom/g; s/^deb-src cdrom/# deb cdrom-src/g' /etc/apt/sources.list > /dev/null
 }
 
 ## Ubuntu
