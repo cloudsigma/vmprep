@@ -1,14 +1,13 @@
 #!/bin/bash
+# vim: tabstop=4 expandtab shiftwidth=2 softtabstop=2
 
 ## Intro block
 clear
+
+# Display banner
+curl -sL https://raw.github.com/cloudsigma/vmprep/master/files/banner
 echo ""
-echo "################################################################################"
-echo "#                                                                              #"
-echo "#                    CloudSigma disk image creation tool.                      #"
-echo "#                                                                              #"
-echo "################################################################################"
-echo ""
+echo "Welcome to vmprep, CloudSigma's Virtual Machine preparation tool."
 
 ################################################################################
 # Pre-flight checks
@@ -186,10 +185,11 @@ function linux_after {
     truncate -s 0 /lib/udev/write_net_rules
   fi
 
-  # Set a hostname
+  # Set the hostname and remove the temporary one
   echo $HOSTNAME > /etc/hostname
-
-  # TODO: Make sure hostname is in hosts-file
+  sed -i "s/^.*$(hostname).*$//g" /etc/hosts > /dev/null
+  hostname $HOSTNAME
+  sed -i "1s/^/127.0.0.1\t$(hostname)\t$(hostname -s)\n/" /etc/hosts
 }
 
 ## Debian
@@ -321,9 +321,6 @@ function fedora {
 
   # Install string to Motd (after login)
   echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
-
-  # Set the hostname
-
 }
 
 ################################################################################
