@@ -198,7 +198,7 @@ function debian {
   apt-get -y --quiet upgrade
 
   # Make sure desired packages are installed
-  apt-get install -y --quiet sudo python-pip vim ufw fail2ban bash-completion acpid cloud-initramfs-tools
+  apt-get install -y --quiet sudo python-pip vim ufw fail2ban bash-completion acpid
 
   # Clean up
   apt-get --quiet autoremove
@@ -240,7 +240,7 @@ function ubuntu {
   debian
 
   # Install the latest kernel
-  apt-get install -y --quiet linux-image-virtual linux-virtual
+  apt-get install -y --quiet linux-image-virtual linux-virtual cloud-initramfs-growroot
 
   # Install string to Motd (after login)
   echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd.tail
@@ -264,7 +264,7 @@ function centos {
   rpm -Uvh https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
   # Make sure desired packages are installed
-  yum install -y vim fail2ban python-pip system-config-securitylevel-tui cloud-initramfs-tools
+  yum install -y vim fail2ban python-pip system-config-securitylevel-tui cloud-initramfs-growroot
   chkconfig fail2ban on
 
   # Clean up
@@ -301,7 +301,7 @@ function fedora {
   yum -y upgrade
 
   # Make sure desired packages are installed
-  yum install -y vim fail2ban python-pip system-config-securitylevel-tui cloud-initramfs-tools
+  yum install -y vim fail2ban python-pip system-config-securitylevel-tui cloud-initramfs-growroot
   chkconfig fail2ban on
 
   # Add user 'cloudsigma' to dialout group so that
