@@ -6,8 +6,7 @@ clear
 
 # Display banner
 curl -sL https://raw.github.com/cloudsigma/vmprep/master/files/banner
-echo ""
-echo "Welcome to vmprep, CloudSigma's Virtual Machine preparation tool."
+echo -e "\nWelcome to vmprep, CloudSigma's Virtual Machine preparation tool."
 
 ################################################################################
 # Pre-flight checks
@@ -199,7 +198,7 @@ function debian {
   apt-get -y --quiet upgrade
 
   # Make sure desired packages are installed
-  apt-get install -y --quiet sudo python-pip vim ufw fail2ban bash-completion acpid
+  apt-get install -y --quiet sudo python-pip vim ufw fail2ban bash-completion acpid cloud-initramfs-tools
 
   # Clean up
   apt-get --quiet autoremove
@@ -265,7 +264,7 @@ function centos {
   rpm -Uvh https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
   # Make sure desired packages are installed
-  yum install -y vim fail2ban python-pip system-config-securitylevel-tui
+  yum install -y vim fail2ban python-pip system-config-securitylevel-tui cloud-initramfs-tools
   chkconfig fail2ban on
 
   # Clean up
@@ -302,7 +301,7 @@ function fedora {
   yum -y upgrade
 
   # Make sure desired packages are installed
-  yum install -y vim fail2ban python-pip system-config-securitylevel-tui
+  yum install -y vim fail2ban python-pip system-config-securitylevel-tui cloud-initramfs-tools
   chkconfig fail2ban on
 
   # Add user 'cloudsigma' to dialout group so that
