@@ -4,6 +4,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 DIST=$(python -c 'import platform; dist = platform.linux_distribution()[0]; print dist[0].upper() + dist[1:]')
 
 # Expand the disk volume
+echo "Expanding root disk..."
 resize2fs /dev/vda2
 
 function generate_ssh_host_key_debian {
