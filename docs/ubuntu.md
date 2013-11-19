@@ -73,7 +73,7 @@ The screenshots were taken during an Ubuntu 12.04 installation for the Zurich da
 ![25](https://raw.github.com/cloudsigma/vmprep/master/img/ubuntu/25.png)
 ![26](https://raw.github.com/cloudsigma/vmprep/master/img/ubuntu/26.png)
 
-*Note:* Next we create the root partition (`/dev/vda1`) for the remaining space.
+*Note:* Next we create the root partition (`/dev/vda2`) for the remaining space.
 
 ![27](https://raw.github.com/cloudsigma/vmprep/master/img/ubuntu/27.png)
 ![28](https://raw.github.com/cloudsigma/vmprep/master/img/ubuntu/28.png)
