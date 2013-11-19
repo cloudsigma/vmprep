@@ -8,13 +8,15 @@ We've also designed these base images to be as convenient as possible for you as
 
 ## Status
 
-| Distribution | Version | Auto expand |
-| --|--|--|
-| CentOS | 6.4 | Yes |
-| Debian | 7.2 | No |
-| Fedora | 19 | Yes |
-| Ubuntu | 12.04 LTS | Yes
-| Ubuntu | 13.10 | Yes
+     ________________________________________
+    | Distribution | Version   | Auto expand |
+    | -------------|-----------|-------------|
+    | CentOS       | 6.4       | Yes         |
+    | Debian       | 7.2       | No          |
+    | Fedora       | 19        | Yes         |
+    | Ubuntu       | 12.04 LTS | Yes         |
+    | Ubuntu       | 13.10     | Yes         |
+    |______________|___________|_____________|
 
 ## Overview
 
