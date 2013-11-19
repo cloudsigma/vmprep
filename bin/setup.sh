@@ -6,7 +6,7 @@ clear
 
 # Display banner
 curl -sL https://raw.github.com/cloudsigma/vmprep/master/files/banner
-echo -e "\n\nWelcome to vmprep, CloudSigma's Virtual Machine preparation tool."
+echo -e "\nWelcome to vmprep, CloudSigma's Virtual Machine preparation tool."
 
 ################################################################################
 # Pre-flight checks
@@ -15,7 +15,7 @@ echo -e "\n\nWelcome to vmprep, CloudSigma's Virtual Machine preparation tool."
 GITHUBFILEPATH="https://raw.github.com/cloudsigma/vmprep/master/files"
 
 ## Require a signature
-echo "Please enter your signature (e.g. 'JD' for John Doe):"
+echo -e "\nPlease enter your signature (e.g. 'JD' for John Doe):"
 read SIGN
 
 if [ -z $SIGN ]; then
