@@ -10,11 +10,13 @@ We've also designed these base images to be as convenient as possible for you as
 
 This tool has been tested on:
 
- * CentOS 6.4
- * Debian 7.2
- * Fedora 19
- * Ubuntu 12.04
- * Ubuntu 13.10
+| Distribution | Version | Auto expand  |
+| --|--| --|
+| CentOS | 6.4 | Yes |
+| Debian | 7.2 | No |
+| Fedora | 19 | Yes |
+| Ubuntu | 12.04 LTS | Yes
+| Ubuntu | 13.10 | Yes
 
 ## Overview
 
