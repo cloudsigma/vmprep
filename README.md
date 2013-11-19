@@ -8,15 +8,17 @@ We've also designed these base images to be as convenient as possible for you as
 
 ## Status
 
-     ________________________________________
-    | Distribution | Version   | Auto expand |
-    | -------------|-----------|-------------|
-    | CentOS       | 6.4       | Yes         |
-    | Debian       | 7.2       | No          |
-    | Fedora       | 19        | Yes         |
-    | Ubuntu       | 12.04 LTS | Yes         |
-    | Ubuntu       | 13.10     | Yes         |
-    |______________|___________|_____________|
+     _________________________________________
+    | Distribution | Version   | Auto expand* |
+    | -------------|-----------|--------------|
+    | CentOS       | 6.4       | Yes          |
+    | Debian       | 7.2       | No           |
+    | Fedora       | 19        | Yes          |
+    | Ubuntu       | 12.04 LTS | Yes          |
+    | Ubuntu       | 13.10     | Yes          |
+    |______________|___________|______________|
+
+(*) Automatically expand root file system on first boot.
 
 ## Overview
 
@@ -32,7 +34,7 @@ In order to keep things consistent, we make a few things consistent across all L
  * To improve security further, `fail2ban` is installed, which provides additional protection against brute-force attacks.
  * All operating systems are using `eth0` as the network interface, and it is configured to use DHCP.
  * A system upgrade (via the native package manager) is executed to ensure that all the latest packages are installed.
- * All disk images are 10GB in size. The disks will automatically expand on first boot if set to larger size.
+ * All disk images are 10GB in size. The disks will automatically expand on first boot if set to larger size (see table above).
  * All systems will have 2GB swap space (`/dev/vda1`) and the rest for root (`/dev/vda2`).
  * All disk images are created to run with VirtIO for both disks and network interface.
  * The keyboard layout is set to English (US).
