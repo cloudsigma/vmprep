@@ -1,7 +1,23 @@
 #!/bin/sh
 
 FIRSTBOOTTRIGGER=/home/cloudsigma/.first_boot
+RESIZEDISK=/home/cloudsigma/.resize_disk
+
+# Run first boot-script
 if [ -f $FIRSTBOOTTRIGGER ]; then
-    /usr/sbin/cs_first_boot.sh
+    . /usr/sbin/cs_first_boot.sh
     rm $FIRSTBOOTTRIGGER
+
+    # Reboot if $REBOOT flag is set
+    if [ $REBOOT = 'True' ]; then
+      shutdown -r now
+      exit 0
+    fi
+fi
+
+# Expand /dev/vda2
+if [ -f $RESIZEDISK ]; then
+    growpart /dev/vda 2
+    resize2fs /dev/vda2
+    rm $RESIZEDISK
 fi

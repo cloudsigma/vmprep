@@ -6,7 +6,7 @@ clear
 
 # Display banner
 curl -sL https://raw.github.com/cloudsigma/vmprep/master/files/banner
-echo -e "\nWelcome to vmprep, CloudSigma's Virtual Machine preparation tool."
+echo -e "\n\nWelcome to vmprep, CloudSigma's Virtual Machine preparation tool."
 
 ################################################################################
 # Pre-flight checks
@@ -264,7 +264,7 @@ function centos {
   rpm -Uvh https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
   # Make sure desired packages are installed
-  yum install -y vim fail2ban python-pip system-config-securitylevel-tui cloud-initramfs-growroot
+  yum install -y vim fail2ban python-pip system-config-securitylevel-tui cloud-utils
   chkconfig fail2ban on
 
   # Clean up

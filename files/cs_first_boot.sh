@@ -5,6 +5,7 @@ DIST=$(python -c 'import platform; dist = platform.linux_distribution()[0]; prin
 
 # Expand the disk volume
 echo "Expanding root disk..."
+growpart /dev/vda 2
 resize2fs /dev/vda2
 
 function generate_ssh_host_key_debian {
@@ -22,6 +23,17 @@ if [ $DIST == 'Debian' ]; then
   generate_ssh_host_key_debian
 elif [ $DIST == 'Ubuntu' ]; then
   generate_ssh_host_key_debian
+fi
+
+# CentOS / RHEL will require a reboot to properly expand disk
+if [ $DIST == 'CentOS' ]; then
+  export REBOOT=True
+  touch /home/cloudsigma/.resize_disk
+elif [ $DIST == 'Redhat' ]; then
+  export REBOOT=True
+  touch /home/cloudsigma/.resize_disk
+else
+  export REBOOT=False
 fi
 
 ## Set the VNC password as the password for the user 'cloudsigma'
