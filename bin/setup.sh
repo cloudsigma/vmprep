@@ -175,7 +175,7 @@ function linux_after {
   rm -f /etc/ssh/ssh_host_*
   exit_check "Removing ssh host keys"
 
-  # Prevent new network interface from showing up as eth1
+  # Prevent new network interface from showing up as eth1 if/when the MAC has changed.
   if [ -f /etc/udev/rules.d/70-persistent-net.rules ]; then
     truncate -s 0 /etc/udev/rules.d/70-persistent-net.rules
   fi
@@ -184,11 +184,17 @@ function linux_after {
     truncate -s 0 /lib/udev/write_net_rules
   fi
 
-  # Set the hostname and remove the temporary one
+  # Set the hostname and remove the temporary one.
+  # We use `hostname` to return the current hostname
+  # and then re-defines it with the desired one afterwards.
   echo $HOSTNAME > /etc/hostname
   sed -i "s/^.*$(hostname).*$//g" /etc/hosts > /dev/null
   hostname $HOSTNAME
   sed -i "1s/^/127.0.0.1\t$(hostname)\t$(hostname -s)\n/" /etc/hosts
+
+  # Make sure we can accept hotplug devices
+  echo -e 'modprobe acpiphp\nmodprobe pci_hotplug' >> /etc/rc.modules
+  chmod +x /etc/rc.modules
 }
 
 ## Debian
