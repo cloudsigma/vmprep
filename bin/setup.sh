@@ -221,7 +221,7 @@ function debian {
   # so this is to avoid the message being displayed twice.
   if [ $DIST == 'Debian' ]; then
     # Install string to Motd (after login)
-    echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
+    echo -e "\n$BANNER\n\n$SYSSTRING\n** Make sure to change the password for 'cloudsigma' **\n" > /etc/motd
   fi
 
   # Configure Uncomplicated Firewall (ufw) block all but SSH
@@ -249,7 +249,7 @@ function ubuntu {
   apt-get install -y --quiet linux-image-virtual linux-virtual cloud-initramfs-growroot
 
   # Install string to Motd (after login)
-  echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd.tail
+  echo -e "\n$BANNER\n\n$SYSSTRING\n** Make sure to change the password for 'cloudsigma' **\n" > /etc/motd.tail
 }
 
 ## CentOS
@@ -283,7 +283,7 @@ function centos {
   echo -e 'DEVICE=eth0\nBOOTPROTO=dhcp\nONBOOT=yes' > /etc/sysconfig/network-scripts/ifcfg-eth0
 
   # Install string to Motd (after login)
-  echo -e "\n$BANNER\n\n$SYSSTRING\n" > /etc/motd
+  echo -e "\n$BANNER\n\n$SYSSTRING\n** Make sure to change the password for 'cloudsigma' **\n" > /etc/motd
 
   # Fix bug with non-persistent DHCP
   # (http://www.metacloud.com/wp-content/uploads/2013/10/OS_Summit_Portland_Images.pdf)
@@ -318,7 +318,7 @@ function fedora {
   yum clean all
 
   # Install string to Motd (after login)
-  echo -e "\nDiscover True IaaS with CloudSigma.\n\n$SYSSTRING\n" > /etc/motd
+  echo -e "\n$BANNER\n$SYSSTRING\n** Make sure to change the password for 'cloudsigma' **\n" > /etc/motd
 
   # Add final line(s) to rc.local
   echo -e 'exit 0' >> /etc/rc.local

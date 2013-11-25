@@ -12,7 +12,7 @@ We've also designed these base images to be as convenient as possible for you as
     | Distribution | Version   | Auto expand* |
     | -------------|-----------|--------------|
     | CentOS       | 6.4       | Yes          |
-    | Debian       | 7.2       | No†          |
+    | Debian       | 7.2       | No †         |
     | Fedora       | 19        | Yes          |
     | Ubuntu       | 12.04 LTS | Yes          |
     | Ubuntu       | 13.10     | Yes          |
@@ -44,7 +44,7 @@ In order to keep things consistent, we make a few things consistent across all L
 One of the corner-stones of these disk images is the use of [meta-data](https://autodetect.cloudsigma.com/docs/server_context.html). Using this, we are able to pass data to the guest operating system. To get a better overview of the various meta-data variables used, here's a brief overview:
 
  * **ssh_public_key**: One or more public SSH keys to be installed into the 'cloudsigma' user account. To use multiple keys, use '\n' as the separator.
- * **provision_hostname**: Set the name of the virtual machine as the hostname for the server. Set to 'true' to enable. This is disabled by default. Please note that the hostname must be a [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) and that no validation of this is implemented.
+ * **provision_hostname**: Set the name of the virtual machine as the hostname for the server. Set to 'true' to enable. This is disabled by default. Please note that the hostname must be a [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) and that no validation of this is implemented. Use with caution.
  * **run_on_first_boot**: A single command, or a chain of commands (chain with `&&` or `;`) to be executed on first boot. Please note that these commands will be executed as root. Use with caution.
 
 
