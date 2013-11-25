@@ -71,7 +71,6 @@ function install_newrelic {
   chmod +x /tmp/nrsetup.sh && /tmp/nrsetup.sh && rm /tmp/nrsetup.sh
 }
 
-
 function install_desktop_ubuntu {
   running_as_root
   apt-get -y install ubuntu-desktop

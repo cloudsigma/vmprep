@@ -36,8 +36,42 @@ else
   export REBOOT=False
 fi
 
-## Set the VNC password as the password for the user 'cloudsigma'
+# Retrieve list of commands passed on as 'run_on_first_boot' and execute them.
+function run_on_first_boot {
+  COMMANDS=$(read -t 13 READVALUE < /dev/ttyS1 && echo $READVALUE & sleep 1; echo -en "<\nmeta/run_on_first_boot\n>" > /dev/ttyS1; wait %1)
+  if [[ "$COMMANDS" ]]; then
+    $COMMANDS
+    echo "Ran commands: "$COMMANDS""
+  else
+    echo "No commands in 'run_on_first_boot'"
+  fi
+}
+
+# Provision a hostname based on the server name if 'provision_hostname' is set to 'true'.
+# The hostname must be a FQDN that is accepted by `hostname`
+function provision_hostname {
+  PROVISIONOSTNAME=$(read -t 13 READVALUE < /dev/ttyS1 && echo $READVALUE & sleep 1; echo -en "<\n/meta/provision_hostname\n>" > /dev/ttyS1; wait %1)
+  HOSTNAME=$(read -t 13 READVALUE < /dev/ttyS1 && echo $READVALUE & sleep 1; echo -en "<\nname\n>" > /dev/ttyS1; wait %1)
+
+  if [ "$PROVISIONOSTNAME" == 'true' ]; then
+    echo $HOSTNAME > /etc/hostname
+    sed -i "s/^.*$(hostname).*$//g" /etc/hosts > /dev/null
+    hostname $HOSTNAME
+    sed -i "1s/^/127.0.0.1\t$(hostname)\t$(hostname -s)\n/" /etc/hosts
+    echo "Set `hostname` to $HOSTNAME."
+  else
+    echo "'provision_hostname' not set to 'true'."
+  fi
+}
+
+# Set the VNC password as the password for the user 'cloudsigma'
 /usr/sbin/cs_util.sh set-vnc-password
 
-## Install SSH keys for CloudSigma
+# Install SSH keys for CloudSigma
 /usr/sbin/cs_util.sh install-ssh-key cloudsigma
+
+# Provision hostname
+provision_hostname
+
+# Run commands passed on in 'run_on_first_boot'
+run_on_first_boot
