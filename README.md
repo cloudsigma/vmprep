@@ -44,7 +44,7 @@ In order to keep things consistent, we make a few things consistent across all L
 One of the corner-stones of these disk images is the use of [meta-data](https://autodetect.cloudsigma.com/docs/server_context.html). Using this, we are able to pass data to the guest operating system. To get a better overview of the various meta-data variables used, here's a brief overview:
 
  * **ssh_public_key**: One or more public SSH keys to be installed into the 'cloudsigma' user account. To use multiple keys, use '\n' as the separator.
- * **hostname**: Set the the hostname for the server. Please note that the hostname must be a [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) and that no validation of this is implemented. Use with caution.
+ * **hostname**: Set a hostname for the server. Please note that the hostname must be a [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name) and that no validation of this is implemented. Use with caution.
  * **run_on_first_boot**: A single command, or a chain of commands (chain with `&&` or `;`) to be executed on first boot. Please note that these commands will be executed as root. Use with caution.
 
 
