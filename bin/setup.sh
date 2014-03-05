@@ -145,16 +145,8 @@ function linux_before {
   exit_check "Disable root login via ssh"
 }
 
-## Function for post-distribution specific function.
-function linux_after {
-
-  # Overwrite `/etc/issue` with some system information and a greeting (for tty/VNC)
-  curl -sL $GITHUBFILEPATH/issue > /etc/issue
-  exit_check "Fetch 'issue'"
-  echo -e "\n$SYSSTRING\n"  >> /etc/issue
-
-  # Touch the trigger file
-  touch /home/cloudsigma/.first_boot
+# Function for cleaning up
+function cleanup {
 
   # Remove all log-files
   find /var/log -type f -delete
@@ -183,6 +175,20 @@ function linux_after {
   if [ -f /lib/udev/write_net_rules ]; then
     truncate -s 0 /lib/udev/write_net_rules
   fi
+}
+
+## Function for post-distribution specific function.
+function linux_after {
+
+  # Overwrite `/etc/issue` with some system information and a greeting (for tty/VNC)
+  curl -sL $GITHUBFILEPATH/issue > /etc/issue
+  exit_check "Fetch 'issue'"
+  echo -e "\n$SYSSTRING\n"  >> /etc/issue
+
+  # Touch the trigger file
+  touch /home/cloudsigma/.first_boot
+
+  cleanup
 
   # Set the hostname and remove the temporary one.
   # We use `hostname` to return the current hostname
@@ -334,6 +340,14 @@ function fedora {
 
 # Pre-flight checks.
 running_as_root
+
+# Make it possible to only run the cleanup part, which is useful
+# for when preparing a diskimage.
+if [ $1 == 'cleanup' ]; then
+  cleanup
+  exit
+fi
+
 check_cs_user
 
 if [ $OS == 'Linux' ]; then
