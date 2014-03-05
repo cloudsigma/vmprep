@@ -2,15 +2,17 @@
 
 FIRSTBOOTTRIGGER=/home/cloudsigma/.first_boot
 RESIZEDISK=/home/cloudsigma/.resize_disk
+REBOOTTRIGGER=/home/cloudsigma/.reboot_me
 
 # Run first boot-script
 if [ -f $FIRSTBOOTTRIGGER ]; then
-    . /usr/sbin/cs_first_boot.sh
+    /usr/sbin/cs_first_boot.sh
     rm $FIRSTBOOTTRIGGER
 
-    # Reboot if $REBOOT flag is set
-    if [ $REBOOT = 'True' ]; then
+    # Reboot if reboot-trigger is set
+    if [ -f $REBOOTTRIGGER ]; then
       shutdown -r now
+      rm $REBOOTTRIGGER
       exit 0
     fi
 fi

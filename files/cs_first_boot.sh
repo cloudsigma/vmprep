@@ -26,14 +26,13 @@ elif [ $DIST == 'Ubuntu' ]; then
 fi
 
 # CentOS / RHEL will require a reboot to properly expand disk
+# We set boot
 if [ $DIST == 'CentOS' ]; then
-  export REBOOT=True
+  touch /home/cloudsigma/.reboot_me
   touch /home/cloudsigma/.resize_disk
 elif [ $DIST == 'Redhat' ]; then
-  export REBOOT=True
+  touch /home/cloudsigma/.reboot_me
   touch /home/cloudsigma/.resize_disk
-else
-  export REBOOT=False
 fi
 
 # Retrieve list of commands passed on as 'run_on_first_boot' and execute them.
