@@ -343,7 +343,7 @@ running_as_root
 
 # Make it possible to only run the cleanup part, which is useful
 # for when preparing a diskimage.
-if [ $1 == 'cleanup' ]; then
+if [[ $1 == 'cleanup' ]]; then
   cleanup
   exit
 fi
